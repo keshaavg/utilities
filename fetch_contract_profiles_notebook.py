@@ -94,4 +94,5 @@ def main():
 
     zip_csv_files(csv_files)
     print("Process complete. CSVs zipped into contracts_export.zip")
-main
+
+main()
