@@ -20,10 +20,14 @@ function Install-Python {
     $url = "https://www.python.org/ftp/python/3.12.3/python-3.12.3-amd64.exe"
     $installer = "$env:TEMP\python-installer.exe"
     Invoke-WebRequest $url -OutFile $installer
-    Start-Process -FilePath $installer -ArgumentList "/quiet InstallAllUsers=1 PrependPath=1" -Wait
-    Remove-Item $installer -Force
-}
 
+    if (Test-Path $installer) {
+        Start-Process -FilePath $installer -ArgumentList "/quiet InstallAllUsers=1 PrependPath=1" -Wait
+        Remove-Item $installer -Force
+    } else {
+        Write-Host "Download failed: Installer not found at $installer" -ForegroundColor Red
+    }
+}
 function Install-Miniconda {
     $url = "https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe"
     $installer = "$env:TEMP\miniconda-installer.exe"
